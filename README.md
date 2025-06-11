@@ -182,6 +182,3 @@ sudo systemctl restart NetworkManager
 
 ---
 
-## 📄 License
-
-MIT License – Feel free to modify and share.
