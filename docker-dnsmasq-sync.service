@@ -1,0 +1,14 @@
+[Unit]
+Description=Auto-sync Docker containers to dnsmasq
+Requires=docker.service
+After=docker.service network.target
+
+[Service]
+ExecStart=/usr/local/bin/docker-dnsmasq-sync.sh
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=docker.service
