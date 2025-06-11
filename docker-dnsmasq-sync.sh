@@ -17,6 +17,9 @@ generate_entries() {
 update_dnsmasq() {
     generate_entries > "$DNSMASQ_CONF"
     systemctl restart NetworkManager
+    if ! systemctl is-active --quiet NetworkManager; then
+           systemctl restart NetworkManager
+    fi
 }
 
 # Initial run
