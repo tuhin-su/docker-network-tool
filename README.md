@@ -15,7 +15,7 @@ This setup allows your host machine to access Docker containers using their name
 
 ## 🛠 Requirements
 
-- Linux (Tested on Kali)
+- Linux (Tested on Kali, Ubuntu)
 - Docker installed
 - NetworkManager with `dnsmasq` support
 - Root privileges
