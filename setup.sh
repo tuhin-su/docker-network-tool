@@ -29,6 +29,7 @@ if systemctl is-active --quiet systemd-resolved; then
     sudo systemctl disable --now systemd-resolved
     sudo rm -f /etc/resolv.conf
     echo "nameserver 127.0.0.1" | sudo tee /etc/resolv.conf > /dev/null
+    echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf > /dev/null
 fi
 
 # Setup NetworkManager config (if present)
