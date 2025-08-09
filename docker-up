@@ -4,6 +4,7 @@ set -e
 echo "[+] Starting Docker service..."
 sudo systemctl start docker
 sudo systemctl start docker.socket
+sudo systemctl start docker-sync
 
 echo "[+] Docker is running. Current status:"
 sudo systemctl status docker --no-pager

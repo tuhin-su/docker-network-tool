@@ -16,6 +16,7 @@ echo "[+] Removing all Docker networks..."
 docker network prune -f
 
 echo "[+] Stopping Docker services..."
+sudo systemctl stop docker-sync
 sudo systemctl stop docker
 sudo systemctl stop docker.socket
 
