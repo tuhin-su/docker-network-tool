@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+echo "[+] Stopping all running containers..."
+docker ps -q | xargs -r docker stop
+
+echo "[+] Removing all containers..."
+docker ps -aq | xargs -r docker rm -f
+
+if [ -f docker-compose.yml ]; then
+    echo "[+] Stopping docker-compose services..."
+    docker compose down -v
+fi
+
+echo "[+] Removing all Docker networks..."
+docker network prune -f
+
+echo "[+] Stopping Docker services..."
+sudo systemctl stop docker
+sudo systemctl stop docker.socket
+
+echo "[+] Removing all Docker network interfaces..."
+for iface in $(ip -o link show | awk -F': ' '{print $2}' | grep -E '^(docker|br-|veth)'); do
+    echo "    - Removing interface: $iface"
+    sudo ip link delete "$iface" || true
+done
+
+echo "[+] Docker completely shut down and cleaned."

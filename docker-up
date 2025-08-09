@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+echo "[+] Starting Docker service..."
+sudo systemctl start docker
+sudo systemctl start docker.socket
+
+echo "[+] Docker is running. Current status:"
+sudo systemctl status docker --no-pager
+
+# Optional: Bring up your docker-compose stack
+if [ -f docker-compose.yml ]; then
+    echo "[+] Starting containers from docker-compose.yml..."
+    docker compose up -d
+fi
