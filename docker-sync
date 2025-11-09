@@ -32,11 +32,10 @@ generate_entries() {
     
     # Add Docker container entries
     for cid in $(docker ps -q); do
-        name=$(docker inspect -f '{{.Name}}' "$cid" | sed 's|/||')
+        hostname=$(docker inspect -f '{{.Config.Hostname}}' "$cid")
         ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$cid")
-        # Only add entry if both name and ip are not empty and name is not just the container ID
-        if [[ -n "$ip" && -n "$name" && "$name" != "$cid" ]]; then
-            echo "$ip $name" >> "$actual_hosts_file"
+        if [[ -n "$ip" && -n "$hostname" && "$hostname" != "$cid" ]]; then
+            echo "$ip ${hostname}.test" >> "$actual_hosts_file"
         fi
     done
 }
